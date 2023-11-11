@@ -2,9 +2,54 @@ import React from "react";
 import "../css/App.css";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { RippleBadge } from "./MaterialTheme/styled";
-// stack-flexbox;
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Users from "./components/users";
+import Dishes from "./components/dishes";
+
 const App = () => {
-  return <Container></Container>;
+  return (
+    // <div>
+    //   <Users />
+    //   <Dishes />
+    // </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/dishes">dishes</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/dishes">
+            <Dishes />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 };
 
 export default App;
+
+function Home() {
+  return (
+    <Container>
+      <h2>Home</h2>
+    </Container>
+  );
+}

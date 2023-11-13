@@ -6,6 +6,30 @@
   background-size: cover;
 }
 
+.format_restaurant.home_navbar {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  background: url("/public/restaurant/header_restaurant_main.png");
+  background-size: cover;
+}
+
+.format_restaurant.home_navbar .navbar_config {
+  margin-top: 55px;
+}
+
+.format_others.home_navbar .navbar_config {
+  margin-top: 55px;
+}
+
+.format_others.home_navbar {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  background: url("/public/others/header_others.png");
+  background-size: cover;
+}
+
 .format.home_navbar .navbar_config {
   width: 1244.69px;
   height: 46px;

@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function HelpPage() {
+const HelpPage = () => {
   return <Container>HelpPage</Container>;
-}
+};
+
+export default HelpPage;

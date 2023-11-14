@@ -1,0 +1,164 @@
+.footer_config {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 509px;
+  background: #2c261e;
+}
+
+.footer_config .main_footer_container {
+  position: s;
+  width: 1144px;
+  height: 377px;
+  margin-top: 91px;
+  margin-left: 131px;
+}
+
+.main_footer_container .main_text {
+  width: 340px;
+  height: 97.225px;
+  color: #e3c08d;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px; /* 212.5% */
+  margin: 19px 0 18px 0;
+}
+
+.main_footer_container .contact_links {
+  width: 125px;
+  height: 15.143px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main_footer_container .parts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 118px;
+  height: 188px;
+  margin-left: 283px;
+  margin-top: 11.3px;
+}
+
+.parts .part_subject {
+  width: 109.98px;
+  height: 32.408px;
+  color: #c5c8c9;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34px; /* 141.667% */
+}
+
+.parts .devider {
+  position: relative;
+  width: 45.4px;
+  height: 1.94px;
+  margin-top: 7.44px;
+  background: #e3c08d;
+}
+
+.parts .targets {
+  position: relative;
+  width: 118.052px;
+  height: 129.633px;
+  margin-top: 11.6px;
+  color: #e3c08d;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px; /* 212.5% */
+}
+
+.footer_config .liner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 1170px;
+  height: 0px;
+  margin-top: 86px;
+  opacity: 0.2;
+  border: 1px solid #c5c8c9;
+}
+
+.footer_config .copyrights {
+  position: relative;
+  width: 344px;
+  height: 32px;
+  color: #e3c08d;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px; /* 212.5% */
+  margin-top: 15px;
+}
+
+.footer_config .info {
+  width: 340px;
+  height: 206px;
+}
+.main_footer_container .find_us {
+  display: flex;
+  flex-direction: column;
+  width: 297px;
+  height: 211px;
+  margin-left: 105px;
+  margin-top: 11.3px;
+}
+
+.find_us .find {
+  width: 116.87px;
+  height: 32.907px;
+  color: #c5c8c9;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34px; /* 141.667% */
+}
+
+.find_us .devider {
+  position: relative;
+  width: 45.4px;
+  height: 1.94px;
+  margin-top: 6.81px;
+  background: #e3c08d;
+}
+
+.find_us .details {
+  display: flex;
+  flex-direction: row;
+  width: 295px;
+  height: 33px;
+}
+
+.details .detail_one {
+  width: 15.011px;
+  height: 32.907px;
+  color: #c5c8c9;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px; /* 188.889% */
+}
+
+.details .detail_second {
+  width: 269.123px;
+  height: 32.907px;
+  color: #e3c08d;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px; /* 212.5% */
+  margin-left: 12px;
+}

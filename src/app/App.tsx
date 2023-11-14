@@ -11,7 +11,7 @@ import { OrdersPage } from "./screens/OrdersPage";
 import { MemberPage } from "./screens/MemberPage";
 import HelpPage from "./screens/HelpPage";
 import { LoginPage } from "./screens/LoginPage";
-import { HomePage } from "./screens/HomePage";
+import HomePage from "./screens/HomePage";
 import NavbarHome from "./components/header";
 import NavbarRestaurant from "./components/header/restaurant";
 import NavbarOthers from "./components/header/others";

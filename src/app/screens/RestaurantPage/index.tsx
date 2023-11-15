@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function RestaurantPage() {
+const RestaurantPage = () => {
   return <Container>RestaurantPage</Container>;
-}
+};
+
+export default RestaurantPage;

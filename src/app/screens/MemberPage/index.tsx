@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function MemberPage() {
+const MemberPage = () => {
   return <Container>MemberPage</Container>;
-}
+};
+
+export default MemberPage;

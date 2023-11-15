@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function OrdersPage() {
+const OrdersPage = () => {
   return <Container>OrdersPage</Container>;
-}
+};
+
+export default OrdersPage;

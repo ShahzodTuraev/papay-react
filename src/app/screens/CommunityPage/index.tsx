@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function CommunityPage() {
+const CommunityPage = () => {
   return <Container>CommunityPage</Container>;
-}
+};
+
+export default CommunityPage;

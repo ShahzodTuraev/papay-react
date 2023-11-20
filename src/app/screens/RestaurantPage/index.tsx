@@ -2,8 +2,8 @@ import React from "react";
 import { Container } from "@mui/material";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ChosenDish from "./chosenDish";
-import ChosenRestaurant from "./chosenRestaurant";
 import AllRestaurants from "./allRestaurants";
+import OneRestaurant from "./oneRestaurant";
 import "../../../css/restaurant.css";
 
 const RestaurantPage = () => {
@@ -16,7 +16,7 @@ const RestaurantPage = () => {
           <ChosenDish />
         </Route>
         <Route path={`${restaurant.path}/:restaurant_id`}>
-          <ChosenRestaurant />
+          <OneRestaurant />
         </Route>
         <Route path={`${restaurant.path}`}>
           <AllRestaurants />

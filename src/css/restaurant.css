@@ -605,6 +605,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  padding-left: 15px;
 }
 
 .single_restaurant .about_restaurnt_stack .about_left_desc span {
@@ -643,6 +644,7 @@
 
 .single_restaurant .about_right_desc {
   width: 362px;
+  padding-top: 15px;
 }
 
 .single_restaurant .about_right_desc span {
@@ -765,3 +767,139 @@
   right: 15%;
 }
 /* 845 page */
+
+/* CHOSEN DISH PAGE STYLES */
+
+.restaurant_page .chosen_dish_page {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: #0b0e11;
+}
+
+.chosen_dish_page .dish_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.chosen_dish_page .chosen_dish_slider {
+  width: 48%;
+  height: 581px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chosen_dish_page .dish_swiper {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
+  width: 100%;
+  height: auto;
+}
+
+.chosen_dish_page .bottom_dish_slider {
+  width: 80%;
+  height: 107px;
+  margin-top: 20px;
+}
+
+.chosen_dish_page .bottom_dish_wrap {
+  width: 100%;
+  height: 100%;
+}
+chosen_dish_page .bottom_dish_image {
+  height: 100%;
+  width: 105.54px;
+}
+
+.chosen_dish_page .bottom_dish_image img {
+  width: 160.54px;
+  height: 107px;
+  border-radius: 15px;
+}
+.chosen_dish_page .chosen_dish_info_container {
+  padding: 30px 40px;
+  width: 49%;
+  height: 452px;
+  display: flex;
+  background: #fff;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 0px 4px 16px rgba(242, 189, 87, 0.04);
+  border-radius: 16px;
+  position: relative;
+}
+
+.chosen_dish_page .chosen_dish_info_container .chosen_dish_info_box {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chosen_dish_info_box .dish_txt {
+  width: 288px;
+  height: 38px;
+  color: #000;
+  font-family: Poppins;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.chosen_dish_info_box .resto_name {
+  color: #000;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.chosen_dish_info_box .rating_box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chosen_dish_info_box .evaluation_box {
+  display: flex;
+}
+
+.chosen_dish_info_box .dish_desc_bottom {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 80px);
+  bottom: 0;
+  left: auto;
+  right: auto;
+}
+
+.chosen_dish_info_box .dish_price_box {
+  display: flex;
+  justify-content: space-between;
+  color: #000;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 20px 0;
+}
+
+.chosen_dish_info_box .button_box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 18px;
+}

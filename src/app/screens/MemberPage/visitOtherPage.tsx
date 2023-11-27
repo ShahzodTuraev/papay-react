@@ -21,6 +21,7 @@ import MemberPosts from "./memberPosts";
 import MemberFollowers from "./memberFollowers";
 import MemberFollowing from "./memberFollowing";
 import MySittings from "./mySittings";
+import TViewer from "./tViewer";
 
 const VisitOtherPage = () => {
   /** INITIALIZINGS **/
@@ -80,8 +81,10 @@ const VisitOtherPage = () => {
                 </TabPanel>
 
                 <TabPanel value="4">
-                  <Box className="menu_name">Tanlangan Maqolalar</Box>
-                  <Box className="menu_content"></Box>
+                  <Box className="menu_name">Tanlangan Maqola</Box>
+                  <Box className="menu_content">
+                    <TViewer text={`<h1>visit other page hi tviewer</h1>`} />
+                  </Box>
                 </TabPanel>
               </Box>
             </Stack>

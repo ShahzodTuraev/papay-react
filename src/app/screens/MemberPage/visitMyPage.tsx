@@ -21,10 +21,12 @@ import MemberPosts from "./memberPosts";
 import MemberFollowers from "./memberFollowers";
 import MemberFollowing from "./memberFollowing";
 import MySittings from "./mySittings";
+import TuiEditor from "./tuiEditor";
+import TViewer from "./tViewer";
 
 const VisitMyPage = () => {
   /** INITIALIZINGS **/
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("6");
 
   /** HANDLERS **/
   const handlerChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -80,7 +82,9 @@ const VisitMyPage = () => {
                 </TabPanel>
                 <TabPanel value="4">
                   <Box className="menu_name">Maqola yozish</Box>
-                  <Box className="menu_content"></Box>
+                  <Box className="menu_content">
+                    <TuiEditor />
+                  </Box>
                 </TabPanel>
                 <TabPanel value="5">
                   <Box className="menu_name">Ma'lumolarni o'zgartirish</Box>
@@ -90,7 +94,9 @@ const VisitMyPage = () => {
                 </TabPanel>
                 <TabPanel value="6">
                   <Box className="menu_name">Tanlangan Maqolalar</Box>
-                  <Box className="menu_content"></Box>
+                  <Box className="menu_content">
+                    <TViewer text="hi tviewer" />
+                  </Box>
                 </TabPanel>
               </Box>
             </Stack>

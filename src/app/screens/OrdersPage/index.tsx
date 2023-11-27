@@ -5,9 +5,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import Tabs from "@mui/material/Tabs";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import PausedOrders from "../../components/orders/pausedOrders";
-import ProcessOrders from "../../components/orders/processOrders";
-import FinishedOrders from "../../components/orders/finishedOrders";
+import PausedOrders from "./pausedOrders";
+import ProcessOrders from "./processOrders";
+import FinishedOrders from "./finishedOrders";
 
 const OrdersPage = () => {
   /**INITIALIZATIONS**/

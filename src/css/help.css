@@ -1,0 +1,110 @@
+.help_page {
+  width: 100%;
+  height: auto;
+  display: flex;
+  background: #0b0e11;
+}
+
+.help_menu .help_menu_wrap {
+  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.help_menu .help_tab {
+  margin: 0 200px;
+}
+
+.help_page .help_main_content {
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin: 30px 0;
+}
+
+.help_main_content .help_rules {
+  color: #172b4d;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border-bottom: 1px solid #c4c4c4;
+  padding: 24px 0 17px 0;
+}
+
+.help_page .message_container h2 {
+  color: #000;
+  font-family: ABeeZee;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.message_container p {
+  color: var(--Text---Color, #4f547b);
+  font-family: Sedan;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 173.333% */
+  margin: 0;
+  margin-bottom: 60px;
+}
+
+.message_container label {
+  color: var(--Head---Color, #140342);
+  font-family: Verdana;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.message_container input {
+  border-radius: 8px;
+  border: 1px solid #140342;
+  background: var(--color-white, #fff);
+  height: 60px;
+  margin-bottom: 30px;
+  color: var(--Text---Color, #4f547b);
+  font-family: Verdana;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 173.333% */
+  padding: 0 20px;
+}
+
+.message_container .message_text {
+  padding: 0 20px;
+  height: 160px;
+  border-radius: 8px;
+  border: 1px solid #140342;
+  background: var(--color-white, #fff);
+}
+
+.message_container .btn_wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.accordian_menu .ques_text {
+  margin: 10px 0;
+  color: #172b4d;
+
+  /* Text/2 strong */
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 21.6px */
+}

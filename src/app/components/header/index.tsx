@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Badge,
   Box,
@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 const NavbarHome = (props: any) => {
+  const [count, setCount] = useState(0);
   return (
     <div className="format home_navbar">
       <Container>
@@ -89,7 +90,9 @@ const NavbarHome = (props: any) => {
             <Box className="define_restaurant">
               The Authentic Restaurant & Cafe
             </Box>
-            <Box className="timeline_service">24 soat xizmatingizdamiz.</Box>
+            <Box className="timeline_service">
+              {count} soat xizmatingizdamiz.
+            </Box>
             <Box sx={{ mt: "90px" }}>
               <Button
                 variant="contained"
@@ -98,6 +101,9 @@ const NavbarHome = (props: any) => {
                   height: "60px",
                   background: "#1976d2",
                   color: "#ffffff",
+                }}
+                onClick={() => {
+                  setCount(count + 1);
                 }}
               >
                 RO'YXATDAN O'TISH

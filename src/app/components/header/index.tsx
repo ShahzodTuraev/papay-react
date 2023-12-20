@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Badge,
   Box,
@@ -11,6 +11,11 @@ import { NavLink } from "react-router-dom";
 
 const NavbarHome = (props: any) => {
   const [count, setCount] = useState(0);
+  const [value, setValue] = useState(true);
+
+  useEffect(() => {
+    setCount(count + 1);
+  }, [value]);
   return (
     <div className="format home_navbar">
       <Container>
@@ -103,7 +108,7 @@ const NavbarHome = (props: any) => {
                   color: "#ffffff",
                 }}
                 onClick={() => {
-                  setCount(count + 1);
+                  setValue(!value);
                 }}
               >
                 RO'YXATDAN O'TISH

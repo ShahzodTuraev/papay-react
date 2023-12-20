@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Statistics from "./statistics";
 import TopRestaurants from "./topRestaurants";
 import BestRestaurants from "./bestRestaurants";
@@ -9,6 +9,12 @@ import Recommentations from "./recommentations";
 import "../../../css/home.css";
 
 const HomePage = () => {
+  useEffect(() => {
+    console.log("ComponentDidMount=>Data fetch");
+    return () => {
+      console.log("componentWillMount=>Did fetch");
+    };
+  }, []);
   return (
     <div className="homepage">
       <Statistics />

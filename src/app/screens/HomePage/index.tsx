@@ -9,11 +9,10 @@ import Recommentations from "./recommentations";
 import "../../../css/home.css";
 
 const HomePage = () => {
+  // selector: store=> data storedan datani olib beradi
   useEffect(() => {
-    console.log("ComponentDidMount=>Data fetch");
-    return () => {
-      console.log("componentWillMount=>Did fetch");
-    };
+    //backend data request=>data
+    // slice: data => storega datanin yozadi
   }, []);
   return (
     <div className="homepage">

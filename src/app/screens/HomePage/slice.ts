@@ -16,19 +16,19 @@ const HomePageSlice = createSlice({
     setTopRestaurants: (state, action) => {
       state.topRestaurants = action.payload;
     },
-    bestRestaurant: (state, action) => {
+    setBestRestaurants: (state, action) => {
       state.bestRestaurant = action.payload;
     },
-    trendProducts: (state, action) => {
+    setTrendProducts: (state, action) => {
       state.trendProducts = action.payload;
     },
-    bestBoArticles: (state, action) => {
+    setBestBoArticles: (state, action) => {
       state.bestBoArticles = action.payload;
     },
-    trenBoArticles: (state, action) => {
+    setTrenBoArticles: (state, action) => {
       state.trenBoArticles = action.payload;
     },
-    newsBoArticles: (state, action) => {
+    setNewsBoArticles: (state, action) => {
       state.newsBoArticles = action.payload;
     },
   },
@@ -37,11 +37,11 @@ const HomePageSlice = createSlice({
 export const {
   //ishlatish
   setTopRestaurants,
-  bestRestaurant,
-  trendProducts,
-  bestBoArticles,
-  trenBoArticles,
-  newsBoArticles,
+  setBestRestaurants,
+  setTrendProducts,
+  setBestBoArticles,
+  setTrenBoArticles,
+  setNewsBoArticles,
 } = HomePageSlice.actions;
 
 const HomePageReduser = HomePageSlice.reducer;

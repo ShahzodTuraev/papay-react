@@ -60,7 +60,7 @@ const TopRestaurants = () => {
                     />
                     <CardContent sx={{ justifyContent: "flex-end" }}>
                       <Typography level="title-lg" textColor="#fff" mb={1}>
-                        {ele.mb_nick}
+                        {ele.mb_nick} restaurant
                       </Typography>
                       <Typography
                         startDecorator={<LocationOnRoundedIcon />}

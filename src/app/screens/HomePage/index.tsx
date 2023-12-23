@@ -8,10 +8,38 @@ import Events from "./events";
 import Recommentations from "./recommentations";
 import "../../../css/home.css";
 
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { setTopRestaurants } from "./slice";
+import { retrieveTopRestaurants } from "./selector";
+import { Restaurant } from "../../../types/user";
+
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTopRestaurants: (data: Restaurant[]) => dispatch(setTopRestaurants(data)),
+});
+
+// REDUX SELECTOR
+const topRestaurantRetriever = createSelector(
+  retrieveTopRestaurants,
+  (topRestaurants) => ({
+    topRestaurants,
+  })
+);
+
 const HomePage = () => {
+  // INITIALIZATION
+  const { setTopRestaurants } = actionDispatch(useDispatch());
+  const { topRestaurants } = useSelector(topRestaurantRetriever);
+  console.log("topRestaurants:::", topRestaurants);
+
   // selector: store=> data storedan datani olib beradi
   useEffect(() => {
     //backend data request=>data
+
+    setTopRestaurants([]);
     // slice: data => storega datanin yozadi
   }, []);
   return (

@@ -11,6 +11,7 @@ export interface Product {
   product_price: number;
   product_discount: number;
   product_left_cnt: number;
+  product_collection: string;
   product_size: string;
   product_volume: number;
   product_description: string;

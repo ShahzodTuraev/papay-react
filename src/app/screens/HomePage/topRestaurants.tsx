@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveTopRestaurants } from "./selector";
 import { Restaurant } from "../../../types/user";
-import { serviceApi } from "../../../lib/config";
+import { serverApi } from "../../../lib/config";
 
 // REDUX SELECTOR
 const topRestaurantRetriever = createSelector(
@@ -38,7 +38,7 @@ const TopRestaurants = () => {
           <Box className="category_title">TOP Restauranlar</Box>
           <Stack flexDirection={"row"} sx={{ mt: "43px" }} m={"16px"}>
             {topRestaurants.map((ele: Restaurant) => {
-              const image_path = `${serviceApi}/${ele.mb_image}`;
+              const image_path = `${serverApi}/${ele.mb_image}`;
               return (
                 <CssVarsProvider key={ele._id}>
                   <Card

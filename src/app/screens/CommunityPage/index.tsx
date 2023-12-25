@@ -17,7 +17,7 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 const targetBoArticles = [1, 2, 3];
 
 const CommunityPage = (props: any) => {
-  /**INITIALIZATION**/
+  /****/
   const [value, setValue] = useState("1");
   /**HANDLERS**/
   const handleChange = (event: any, newValue: string) => {

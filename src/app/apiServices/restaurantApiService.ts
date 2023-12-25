@@ -9,7 +9,8 @@ class RestaurantApiService {
   constructor() {
     this.path = serverApi;
   }
-  async getTopRestaurants() {
+  async getTopRestaurants(): Promise<Restaurant[]> {
+    //qogan joydayam promise ishlat
     try {
       const url = "/restaurants?order=top&page=1&limit=4",
         result = await axios.get(this.path + url, { withCredentials: true });
@@ -23,12 +24,12 @@ class RestaurantApiService {
     }
   }
 
-  async getRestaurants(data: SearchObj) {
+  async getRestaurants(data: SearchObj): Promise<Restaurant[]> {
     try {
       const url = `/restaurants?order=${data.order}&page=${data.page}&limit=${data.limit}`,
         result = await axios.get(this.path + url, { withCredentials: true });
       assert.ok(result, Definer.general_err1);
-      console.log("result:::", result);
+      // console.log("result:::", result);
       const top_restaurants: Restaurant[] = result.data.data;
       return top_restaurants;
     } catch (err: any) {

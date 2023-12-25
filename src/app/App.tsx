@@ -16,8 +16,10 @@ import NavbarHome from "./components/header";
 import NavbarRestaurant from "./components/header/restaurant";
 import NavbarOthers from "./components/header/others";
 import Footer from "./components/footer";
+import AuthenticationModel from "./components/auth";
 
 const App = () => {
+  /**INITIALIZATIONS*/
   const [path, setPath] = useState();
   const main_path = window.location.pathname;
   console.log(main_path);
@@ -56,6 +58,7 @@ const App = () => {
         </Route>
       </Switch>
       <Footer />
+      <AuthenticationModel />
     </Router>
   );
 };

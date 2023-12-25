@@ -9,7 +9,7 @@ import Recommentations from "./recommentations";
 import "../../../css/home.css";
 
 // REDUX
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // useSelector orqali o'qiladi
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { setBestRestaurants, setTopRestaurants } from "./slice";
@@ -21,14 +21,14 @@ import RestaurantApiService from "../../apiServices/restaurantApiService";
 const actionDispatch = (dispatch: Dispatch) => ({
   setTopRestaurants: (data: Restaurant[]) => dispatch(setTopRestaurants(data)),
   setBestRestaurants: (data: Restaurant[]) =>
-    dispatch(setBestRestaurants(data)),
+    dispatch(setBestRestaurants(data)), //payload comand
 });
 
 const HomePage = () => {
   // INITIALIZATION
   const { setTopRestaurants, setBestRestaurants } = actionDispatch(
     useDispatch()
-  );
+  ); // actionDispatchni ichidan useDispatch orqali qabul qilib olamiz
 
   // selector: store=> data storedan datani olib beradi
   useEffect(() => {

@@ -10,9 +10,6 @@ import {
 import { NavLink } from "react-router-dom";
 
 const NavbarHome = (props: any) => {
-  const handleClick = () => {
-    console.log("hell");
-  };
   return (
     <div className="format home_navbar">
       <Container>

@@ -1,10 +1,10 @@
 import { createSelector } from "reselect";
 import { AppRootState } from "../../../types/screen";
 
-const selectHomePage = (state: AppRootState) => state.homePage;
+const selectHomePage = (state: AppRootState) => state.homePage; //state- butun application statei
 export const retrieveTopRestaurants = createSelector(
-  selectHomePage,
-  (HomePage) => HomePage.topRestaurants
+  selectHomePage, //selectHomePagedan HomePageni olib ber
+  (HomePage) => HomePage.topRestaurants //homPagening ichidan TopRestaurants ni olib retriveTopRestaurantsga joylandi.
 );
 export const retrieveBestRestaurants = createSelector(
   selectHomePage,

@@ -4,9 +4,9 @@ import reduxLogger from "redux-logger";
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(reduxLogger),
+    getDefaultMiddleware().concat(reduxLogger), //console.log da ko'rinish u-n kiritdik
   reducer: {
-    homePage: HomePageReduser,
+    homePage: HomePageReduser, //redux storemizni homPagega tegishli qismini o'zgartirishga yordam beradi
   },
 });
 

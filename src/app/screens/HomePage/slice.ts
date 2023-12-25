@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"; //obj
 import { HomePageState } from "../../../types/screen";
 const initialState: HomePageState = {
   topRestaurants: [],
@@ -13,9 +13,12 @@ const HomePageSlice = createSlice({
   name: "homePage",
   initialState,
   reducers: {
+    //reducerlarning mapsadi initial valueni o'zgartirish
+    //ma'lumotni borib redux storega yozadigan actionlar. Ular yuqoridagi top restaurant , bestRestaurant... larning qiymatini o'zgartiruvchilar.
     setTopRestaurants: (state, action) => {
-      state.topRestaurants = action.payload;
-    },
+      //TopRestauarntning qiymatini o'zgartiradi.
+      state.topRestaurants = action.payload; //actiondan keyalayotgan dataning qiymatini payload orqali olib, topRestaurants ning qiymatini o'zgartiraman.
+    }, //set bilan yozilgan hammasi hompageslicening actionlari
     setBestRestaurants: (state, action) => {
       state.bestRestaurant = action.payload;
     },

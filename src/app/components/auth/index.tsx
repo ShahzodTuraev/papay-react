@@ -55,7 +55,7 @@ const AuthenticationModel = (props: any) => {
 
   const handleLogInRequest = async () => {
     try {
-      const is_fulfilled = mb_nick != "" && mb_password != "";
+      const is_fulfilled = mb_nick !== "" && mb_password !== "";
       assert.ok(is_fulfilled, Definer.input_err1);
       const login_data = {
         mb_nick,
@@ -67,7 +67,28 @@ const AuthenticationModel = (props: any) => {
       window.location.reload();
     } catch (err) {
       console.log(err);
-      props.handle.LogInClose();
+      props.handleLogInClose();
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const handleSignUpRequest = async () => {
+    try {
+      const is_fulfilled =
+        mb_nick !== "" && mb_password !== "" && mb_phone !== "";
+      assert.ok(is_fulfilled, Definer.input_err1);
+      const signup_data = {
+        mb_nick,
+        mb_phone,
+        mb_password,
+      };
+      const mbApiService = new MemberApiService();
+      await mbApiService.signupRequest(signup_data);
+      props.handleSingUpClose();
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      props.handleSingUpClose();
       sweetErrorHandling(err).then();
     }
   };
@@ -118,6 +139,7 @@ const AuthenticationModel = (props: any) => {
                 sx={{ marginTop: "30px", width: "120px" }}
                 variant="extended"
                 color="primary"
+                onClick={handleSignUpRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
                 Sign up

@@ -6,6 +6,10 @@ import { Fade } from "@material-ui/core";
 import { Fab, Stack, TextField } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService copy";
 
 const useStyle = makeStyles((theme) => ({
   modal: {
@@ -31,9 +35,42 @@ const ModalImg = styled.img`
 `;
 
 const AuthenticationModel = (props: any) => {
+  // INITIALIZATIONS
   const classes = useStyle();
-  const signUpOpen = false;
-  const logInOpen = true;
+
+  let mb_nick: string = "",
+    mb_password: string = "",
+    mb_phone: string = "";
+
+  // HANDLERS
+  const handleUserName = (e: any) => {
+    mb_nick = e.target.value;
+  };
+  const handlePhone = (e: any) => {
+    mb_phone = e.target.value;
+  };
+  const handlePassword = (e: any) => {
+    mb_password = e.target.value;
+  };
+
+  const handleLogInRequest = async () => {
+    try {
+      const is_fulfilled = mb_nick != "" && mb_password != "";
+      assert.ok(is_fulfilled, Definer.input_err1);
+      const login_data = {
+        mb_nick,
+        mb_password,
+      };
+      const mbApiService = new MemberApiService();
+      await mbApiService.loginRequest(login_data);
+      props.handleLogInClose();
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      props.handle.LogInClose();
+      sweetErrorHandling(err).then();
+    }
+  };
 
   return (
     <div>
@@ -42,12 +79,13 @@ const AuthenticationModel = (props: any) => {
         aria-labelledby="transition-model-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={signUpOpen}
+        open={props.signUpOpen}
+        onClose={props.handleSingUpClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
       >
-        <Fade in={signUpOpen}>
+        <Fade in={props.signUpOpen}>
           <Stack
             className={classes.paper}
             direction={"row"}
@@ -61,17 +99,20 @@ const AuthenticationModel = (props: any) => {
                 id="outlined-basic"
                 label="username"
                 variant="outlined"
+                onChange={handleUserName}
               />
               <TextField
                 sx={{ my: "17px" }}
                 id="outlined-basic"
                 label="phone number"
                 variant="outlined"
+                onChange={handlePhone}
               />
               <TextField
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
+                onChange={handlePassword}
               />
               <Fab
                 sx={{ marginTop: "30px", width: "120px" }}
@@ -90,12 +131,13 @@ const AuthenticationModel = (props: any) => {
         aria-labelledby="transition-model-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={logInOpen}
+        open={props.logInOpen}
+        onClose={props.handleLogInClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
       >
-        <Fade in={logInOpen}>
+        <Fade in={props.logInOpen}>
           <Stack
             className={classes.paper}
             direction={"row"}
@@ -111,6 +153,7 @@ const AuthenticationModel = (props: any) => {
             >
               <h2>Log in Form</h2>
               <TextField
+                onChange={handleUserName}
                 id="outlined-basic"
                 label="username"
                 variant="outlined"
@@ -120,11 +163,13 @@ const AuthenticationModel = (props: any) => {
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
+                onChange={handlePassword}
               />
               <Fab
                 sx={{ marginTop: "25px", width: "120px" }}
                 variant="extended"
                 color="primary"
+                onClick={handleLogInRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
                 Log in

@@ -34,3 +34,44 @@ export const sweetTopSuccessAlert = async (
   });
   // window.location.reload()
 };
+
+export const sweetTopSmallSuccessAlert = async (
+  msg: string,
+  duration: number = 2000,
+  enable_forward: boolean = false
+) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: duration,
+    timerProgressBar: true,
+  });
+
+  Toast.fire({
+    icon: "success",
+    title: msg,
+  }).then((data) => {
+    if (enable_forward) {
+      window.location.reload();
+    }
+  });
+};
+
+export const sweetFailureProvider = (
+  msg: string,
+  show_button: boolean = false,
+  enable_forward: boolean = false,
+  forward_url: string = "/"
+) => {
+  Swal.fire({
+    icon: "error",
+    title: msg,
+    showConfirmButton: show_button,
+    confirmButtonText: "OK",
+  }).then((data) => {
+    if (enable_forward) {
+      window.location.replace(forward_url);
+    }
+  });
+};

@@ -22,16 +22,36 @@ const App = () => {
   /**INITIALIZATIONS*/
   const [path, setPath] = useState();
   const main_path = window.location.pathname;
-  console.log(main_path);
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [logInOpen, setLogInOpen] = useState(false);
+
+  /*HANDLERS */
+
+  const handleSignUpOpen = () => setSignUpOpen(true);
+  const handleSignUpClose = () => setSignUpOpen(false);
+  const handleLogInOpen = () => setLogInOpen(true);
+  const handleLogInClose = () => setLogInOpen(false);
 
   return (
     <Router>
       {main_path == "/" ? (
-        <NavbarHome setPath={setPath} />
+        <NavbarHome
+          setPath={setPath}
+          handleSignUpOpen={handleSignUpOpen}
+          handleLogInOpen={handleLogInOpen}
+        />
       ) : main_path.includes("/restaurant") ? (
-        <NavbarRestaurant setPath={setPath} />
+        <NavbarRestaurant
+          setPath={setPath}
+          handleSignUpOpen={handleSignUpOpen}
+          handleLogInOpen={handleLogInOpen}
+        />
       ) : (
-        <NavbarOthers setPath={setPath} />
+        <NavbarOthers
+          setPath={setPath}
+          handleSignUpOpen={handleSignUpOpen}
+          handleLogInOpen={handleLogInOpen}
+        />
       )}
 
       <Switch>
@@ -58,7 +78,14 @@ const App = () => {
         </Route>
       </Switch>
       <Footer />
-      <AuthenticationModel />
+      <AuthenticationModel
+        signUpOpen={signUpOpen}
+        handleSignUpOpen={handleSignUpOpen}
+        handleSingUpClose={handleSignUpClose}
+        logInOpen={logInOpen}
+        handleLogInOpen={handleLogInOpen}
+        handleLogInClose={handleLogInClose}
+      />
     </Router>
   );
 };

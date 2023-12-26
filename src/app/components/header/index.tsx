@@ -72,6 +72,7 @@ const NavbarHome = (props: any) => {
               <Button
                 variant="contained"
                 style={{ color: "#FFFFFF", background: "#1976d2" }}
+                onClick={props.handleLogInOpen}
               >
                 KIRISH
               </Button>
@@ -99,6 +100,7 @@ const NavbarHome = (props: any) => {
                   background: "#1976d2",
                   color: "#ffffff",
                 }}
+                onClick={props.handleSignUpOpen}
               >
                 RO'YXATDAN O'TISH
               </Button>

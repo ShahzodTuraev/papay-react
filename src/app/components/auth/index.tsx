@@ -9,7 +9,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
-import MemberApiService from "../../apiServices/memberApiService copy";
+import MemberApiService from "../../apiServices/memberApiService";
 
 const useStyle = makeStyles((theme) => ({
   modal: {

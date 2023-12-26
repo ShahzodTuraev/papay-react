@@ -32,7 +32,7 @@ export const sweetTopSuccessAlert = async (
     showConfirmButton: false,
     timer: duration,
   });
-  // window.location.reload()
+  // window.location.reload();
 };
 
 export const sweetTopSmallSuccessAlert = async (

@@ -25,6 +25,7 @@ import {
 } from "../lib/sweetAlert";
 import { Definer } from "../lib/Definer";
 import MemberApiService from "./apiServices/memberApiService";
+import "../app/apiServices/verify";
 
 const App = () => {
   /**INITIALIZATIONS*/
@@ -70,7 +71,6 @@ const App = () => {
       const memberApiService = new MemberApiService();
       await memberApiService.logOutRequest();
       await sweetTopSmallSuccessAlert("success", 700, true);
-      localStorage.removeItem("member_data");
     } catch (err) {
       console.log(err);
       sweetFailureProvider(Definer.general_err1);

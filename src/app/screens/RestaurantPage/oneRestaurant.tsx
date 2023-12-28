@@ -33,6 +33,13 @@ import { ProductSearchObj } from "../../../types/others";
 import ProductApiService from "../../apiServices/productApiService";
 import { serverApi } from "../../../lib/config";
 import RestaurantApiService from "../../apiServices/restaurantApiService";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import MemberApiService from "../../apiServices/memberApiService";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setRandomRestaurants: (data: Restaurant[]) =>
@@ -79,18 +86,21 @@ const OneRestaurant = () => {
       product_collection: "dish",
     });
 
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
+
   useEffect(() => {
     const restaurantService = new RestaurantApiService();
     restaurantService
       .getRestaurants({ page: 1, limit: 10, order: "random" })
       .then((data) => setRandomRestaurants(data))
       .catch((err) => console.log(err));
+
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObject)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObject]);
+  }, [targetProductSearchObject, productRebuild]);
   const history = useHistory();
   // HANDLERS
 
@@ -100,6 +110,34 @@ const OneRestaurant = () => {
     setTargetProductSearchObject({ ...targetProductSearchObject });
     history.push(`/restaurant/${id}`);
   };
+
+  const searchCollectionHandler = (collection: string) => {
+    targetProductSearchObject.page = 1;
+    targetProductSearchObject.product_collection = collection;
+    setTargetProductSearchObject({ ...targetProductSearchObject });
+  };
+
+  const searchOrderHandler = (order: string) => {
+    targetProductSearchObject.page = 1;
+    targetProductSearchObject.order = order;
+    setTargetProductSearchObject({ ...targetProductSearchObject });
+  };
+
+  const targetLikeHandler = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const data = { like_ref_id: e.target.id, group_type: "product" };
+      const like_result: any = await memberService.memberLikeTarget(data);
+      assert.ok(like_result, Definer.general_err1);
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setProductRebuild(new Date());
+    } catch (err: any) {
+      console.log("targetLikeProduct, ERROR:::", err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
   return (
     <div className="single_restaurant">
       <Container>
@@ -177,16 +215,32 @@ const OneRestaurant = () => {
             sx={{ mt: "65px" }}
           >
             <Box className="dishs_filter_box">
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => searchOrderHandler("createdAt")}
+              >
                 new
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => searchOrderHandler("product_price")}
+              >
                 price
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => searchOrderHandler("product_likes")}
+              >
                 likes
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => searchOrderHandler("product_views")}
+              >
                 views
               </Button>
             </Box>
@@ -202,19 +256,39 @@ const OneRestaurant = () => {
           >
             <Stack className="dish_category_box">
               <div className="dish_category_main">
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("etc")}
+                >
                   boshqa
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("dessert")}
+                >
                   desert
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("drink")}
+                >
                   ichimlik
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("salad")}
+                >
                   salad
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("dish")}
+                >
                   ovqatlar
                 </Button>
               </div>
@@ -244,6 +318,7 @@ const OneRestaurant = () => {
                           color="primary"
                         >
                           <Checkbox
+                            onClick={targetLikeHandler}
                             icon={<FavoriteBorder style={{ color: "white" }} />}
                             id={product._id}
                             checkedIcon={<Favorite style={{ color: "red" }} />}

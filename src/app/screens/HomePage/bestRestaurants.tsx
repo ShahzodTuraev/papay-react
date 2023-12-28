@@ -48,6 +48,7 @@ const BestRestaurants = () => {
       const data = { like_ref_id: id, group_type: "member" };
       const like_result: any = await memberService.memberLikeTarget(data);
       assert.ok(like_result, Definer.general_err1);
+
       if (like_result.like_status > 0) {
         e.target.style.fill = "red";
         refs.current[like_result.like_ref_id].innerHTML++;

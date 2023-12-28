@@ -10,10 +10,11 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import { Favorite } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 // REDUX
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveTopRestaurants } from "./selector";
 import { Restaurant } from "../../../types/user";
+// OTHERS
 import { serverApi } from "../../../lib/config";
 import {
   sweetErrorHandling,

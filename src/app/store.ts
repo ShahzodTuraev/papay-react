@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import HomePageReduser from "./screens/HomePage/slice";
 import reduxLogger from "redux-logger";
 import RestaurantPageReducer from "./screens/RestaurantPage/slice";
+import OrdersPageReducer from "./screens/OrdersPage/slice";
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -9,6 +10,7 @@ export const store = configureStore({
   reducer: {
     homePage: HomePageReduser, //redux storemizni homPagega tegishli qismini o'zgartirishga yordam beradi
     restaurantPage: RestaurantPageReducer,
+    ordersPage: OrdersPageReducer,
   },
 });
 

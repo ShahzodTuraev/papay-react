@@ -75,7 +75,7 @@ const OneRestaurant = () => {
   const { randomRestaurants } = useSelector(randomRestaurantsRetriever);
   const { chosenRestaurant } = useSelector(chosenRestaurantsRetriever);
   const { targetProducts } = useSelector(targetProductsRetriever);
-  const [chosenRestaurantId, setChosenRestaurntId] =
+  const [chosenRestaurantId, setChosenRestaurantId] =
     useState<string>(restaurant_id);
   const [targetProductSearchObject, setTargetProductSearchObject] =
     useState<ProductSearchObj>({
@@ -94,18 +94,21 @@ const OneRestaurant = () => {
       .getRestaurants({ page: 1, limit: 10, order: "random" })
       .then((data) => setRandomRestaurants(data))
       .catch((err) => console.log(err));
-
+    restaurantService
+      .getChosenRestaurant(chosenRestaurantId)
+      .then((data) => setChosenRestaurant(data))
+      .catch((err) => console.log(err));
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObject)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObject, productRebuild]);
+  }, [chosenRestaurantId, targetProductSearchObject, productRebuild]);
   const history = useHistory();
   // HANDLERS
 
   const chosenRestaurantHandler = (id: string) => {
-    setChosenRestaurntId(id);
+    setChosenRestaurantId(id);
     targetProductSearchObject.restaurant_mb_id = id;
     setTargetProductSearchObject({ ...targetProductSearchObject });
     history.push(`/restaurant/${id}`);
@@ -123,6 +126,9 @@ const OneRestaurant = () => {
     setTargetProductSearchObject({ ...targetProductSearchObject });
   };
 
+  const chosenDishHandler = (id: string) => {
+    history.push(`/restaurant/dish/${id}`);
+  };
   const targetLikeHandler = async (e: any) => {
     try {
       assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
@@ -144,7 +150,7 @@ const OneRestaurant = () => {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Stack className="avatar_big_box">
             <Box className="top_text">
-              <p>Texas De Brazil Restaurant</p>
+              <p>{chosenRestaurant?.mb_nick}</p>
               <Box className="Single_search_big_box">
                 <form action="" className="Single_search_form">
                   <input
@@ -301,7 +307,11 @@ const OneRestaurant = () => {
                     ? product.product_volume + "l"
                     : product.product_size + "size";
                 return (
-                  <Box className="dish_box" key={product._id}>
+                  <Box
+                    onClick={() => chosenDishHandler(product._id)}
+                    className="dish_box"
+                    key={product._id}
+                  >
                     <Box
                       className="dish_img"
                       sx={{
@@ -422,15 +432,13 @@ const OneRestaurant = () => {
         <Stack className="about_restaurnt_stack">
           <Box
             className="about_left"
-            sx={{ backgroundImage: `url('/restaurant/foodcity.jpeg')` }}
+            sx={{
+              backgroundImage: `url(${serverApi}/${chosenRestaurant?.mb_image})`,
+            }}
           >
             <div className="about_left_desc">
-              <span>Merhaba</span>
-              <p>
-                Biz sizlarga xizmat ko’rsatayotganimizdan bag’oyatda xursadmiz.
-                Bizning xaqimizda: O’z faoliyatimizni 1945 - yilda boshlaganmiz
-                vaxokazo vaxokazo vaxokazo...
-              </p>
+              <span>{chosenRestaurant?.mb_nick}</span>
+              <p>{chosenRestaurant?.mb_description}</p>
             </div>
           </Box>
           <Box className="about_right">

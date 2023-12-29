@@ -23,7 +23,7 @@ export interface HomePageState {
 export interface RestaurantPageState {
   targetRestaurants: Restaurant[];
   randomRestaurants: Restaurant[];
-  chosenRestaurant: Restaurant[] | null;
+  chosenRestaurant: Restaurant | null;
   targetProducts: Product[];
-  chosenProduct: Product[] | null;
+  chosenProduct: Product | null;
 }

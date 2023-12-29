@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -13,12 +13,91 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
+import { useParams } from "react-router-dom";
 
-const chosen_list = Array.from(Array(3).keys());
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { retrieveChosenProduct, retrieveChosenRestaurant } from "./selector";
+import { Restaurant } from "../../../types/user";
+import { setChosenProduct, setChosenRestaurant } from "./slice";
+import { Product } from "../../../types/product";
+import ProductApiService from "../../apiServices/productApiService";
+import RestaurantApiService from "../../apiServices/restaurantApiService";
+import { serverApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import assert from "assert";
+
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
+  setChosenRestaurant: (data: Restaurant) =>
+    dispatch(setChosenRestaurant(data)),
+});
+// REDUX SELECTOR
+const chosenProductRetriever = createSelector(
+  retrieveChosenProduct,
+  (chosenProduct) => ({
+    chosenProduct,
+  })
+);
+const chosenRestaurantRetriever = createSelector(
+  retrieveChosenRestaurant,
+  (chosenRestaurnt) => ({
+    chosenRestaurnt,
+  })
+);
 
 const ChosenDish = () => {
+  // INITIALIZATIONS
+  let { dish_id } = useParams<{ dish_id: string }>();
+  const { setChosenProduct, setChosenRestaurant } = actionDispatch(
+    useDispatch()
+  );
+  const { chosenProduct } = useSelector(chosenProductRetriever);
+  const { chosenRestaurnt } = useSelector(chosenRestaurantRetriever);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const dishRelatedProcess = async () => {
+    try {
+      const productService = new ProductApiService();
+      const product: Product = await productService.getChosenDish(dish_id);
+      setChosenProduct(product);
+      const restaurantService = new RestaurantApiService();
+      const restaurnt = await restaurantService.getChosenRestaurant(
+        product.restaurant_mb_id
+      );
+      setChosenRestaurant(restaurnt);
+    } catch (err) {
+      console.log("DishRelatedProcess:", err);
+    }
+  };
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
 
+  useEffect(() => {
+    dishRelatedProcess().then();
+  }, [productRebuild]);
+  // HANDLER
+
+  const targetLikeHandler = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const data = { like_ref_id: e.target.id, group_type: "product" };
+      const like_result: any = await memberService.memberLikeTarget(data);
+      assert.ok(like_result, Definer.general_err1);
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setProductRebuild(new Date());
+    } catch (err: any) {
+      console.log("targetLikeProduct, ERROR:::", err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <div className="chosen_dish_page">
       <Container className="dish_container">
@@ -30,8 +109,8 @@ const ChosenDish = () => {
             navigation={true}
             modules={[FreeMode, Navigation, Thumbs]}
           >
-            {chosen_list.map((ele, index) => {
-              const image_path = `/others/sandwich.jpeg`;
+            {chosenProduct?.product_images?.map((ele, index) => {
+              const image_path = `${serverApi}/${ele}`;
               return (
                 <SwiperSlide key={index}>
                   <img
@@ -45,18 +124,19 @@ const ChosenDish = () => {
           <Stack className="bottom_dish_slider">
             <Swiper
               className=" bottom_dish_wrap"
-              slidesPerView={3}
+              slidesPerView={chosenProduct?.product_images.length}
               centeredSlides={false}
               spaceBetween={20}
             >
-              {[1, 2, 3, 4].map((ele, order) => {
+              {chosenProduct?.product_images?.map((ele, order) => {
+                const image_path = `${serverApi}/${ele}`;
                 return (
                   <SwiperSlide
                     className="bottom_dish_image"
                     style={{ cursor: "pointer" }}
                     key={order}
                   >
-                    <img src="/others/sandwich.jpeg" />
+                    <img src={image_path} />
                   </SwiperSlide>
                 );
               })}
@@ -66,8 +146,8 @@ const ChosenDish = () => {
 
         <Stack className="chosen_dish_info_container">
           <Box className="chosen_dish_info_box">
-            <strong className="dish_txt">Sweet Sandvich</strong>
-            <span className="resto_name">Texas De Brazil</span>
+            <strong className="dish_txt">{chosenProduct?.product_name}</strong>
+            <span className="resto_name">{chosenRestaurnt?.mb_nick}</span>
             <Box className="rating_box">
               <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
               <div className="evaluation_box">
@@ -80,19 +160,28 @@ const ChosenDish = () => {
                 >
                   <Checkbox
                     {...label}
+                    id={chosenProduct?._id}
+                    onClick={targetLikeHandler}
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
-                    checked={true}
+                    checked={
+                      chosenProduct?.me_liked &&
+                      !!chosenProduct.me_liked[0]?.my_favorite
+                    }
                   />
-                  <span>98 ta</span>
+                  <span>{chosenProduct?.product_likes}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                  <span>1000 ta</span>
+                  <span>{chosenProduct?.product_views}</span>
                 </div>
               </div>
             </Box>
-            <p className="dish_desc_info">Juda mazali sendvich</p>
+            <p className="dish_desc_info">
+              {chosenProduct?.product_description
+                ? chosenProduct?.product_description
+                : "no description"}
+            </p>
             <div className="dish_desc_bottom">
               <Marginer
                 direction="horizontal"
@@ -102,7 +191,7 @@ const ChosenDish = () => {
               />
               <div className="dish_price_box">
                 <span>Narxi:</span>
-                <span>$11</span>
+                <span>{`$ ${chosenProduct?.product_price}`}</span>
               </div>
               <div className="button_box">
                 <Button variant="contained">Savatga qo'shish</Button>

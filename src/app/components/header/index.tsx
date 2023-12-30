@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { Logout } from "@mui/icons-material";
+import Basket from "./basket";
 
 const NavbarHome = (props: any) => {
   // INITIALIZATIONS
@@ -67,7 +68,8 @@ const NavbarHome = (props: any) => {
                 Yordam
               </NavLink>
             </Box>
-            <Box className="hover-line" onClick={props.setPath}>
+            <Basket />
+            {/* <Box className="hover-line" onClick={props.setPath}>
               <IconButton
                 aria-label="cart"
                 id="basic-button"
@@ -82,7 +84,7 @@ const NavbarHome = (props: any) => {
                   <img src="/icons/shopping-cart.svg" alt="shopping-card" />
                 </Badge>
               </IconButton>
-            </Box>
+            </Box> */}
             {!props.verifiedMemberData ? (
               <Box>
                 <Button

@@ -54,7 +54,7 @@ const chosenRestaurantRetriever = createSelector(
   })
 );
 
-const ChosenDish = () => {
+const ChosenDish = (props: any) => {
   // INITIALIZATIONS
   let { dish_id } = useParams<{ dish_id: string }>();
   const { setChosenProduct, setChosenRestaurant } = actionDispatch(
@@ -194,7 +194,12 @@ const ChosenDish = () => {
                 <span>{`$ ${chosenProduct?.product_price}`}</span>
               </div>
               <div className="button_box">
-                <Button variant="contained">Savatga qo'shish</Button>
+                <Button
+                  onClick={() => props.onAdd(chosenProduct)}
+                  variant="contained"
+                >
+                  Savatga qo'shish
+                </Button>
               </div>
             </div>
           </Box>

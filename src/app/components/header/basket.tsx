@@ -5,11 +5,22 @@ import Menu from "@mui/material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React, { useState } from "react";
+import { CartItem } from "../../../types/others";
+import { serverApi } from "../../../lib/config";
 
 const Basket = (props: any) => {
   // INITIALIZATIONS
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const { cartItems, onAdd } = props;
+  const itemsPrice = cartItems.reduce(
+    (a: any, c: CartItem) => a + c.price * c.quantity,
+    0
+  );
+  const shippingPrice = itemsPrice > 100 ? 0 : 2;
+  const totalPrice = itemsPrice + shippingPrice;
+
   // HANDLERS
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +40,7 @@ const Basket = (props: any) => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <Badge badgeContent={1} color="secondary">
+        <Badge badgeContent={cartItems.length} color="secondary">
           <img src="/icons/shopping-cart.svg" alt="cart" />
         </Badge>
       </IconButton>
@@ -68,24 +79,39 @@ const Basket = (props: any) => {
       >
         <Stack className="basket_frame">
           <Box className="all_check_box">
-            {false ? <div>Cart is empty!</div> : <div>My Cart Products</div>}
+            {cartItems.length > 0 ? (
+              <div>Cart is empty!</div>
+            ) : (
+              <div>My Cart Products</div>
+            )}
           </Box>
           <Box className="orders_main_wrapper">
             <Box className="orders_wrapper">
-              {[0].map(() => {
-                const image_path = "/others/qovurma.jpg";
+              {cartItems.map((item: CartItem) => {
+                const image_path = `${serverApi}/${item.image}`;
                 return (
                   <Box className="basket_info_box">
                     <div className="cancel_btn">
                       <CancelIcon color="primary" />
                     </div>
-                    <img src={image_path} alt="product" />
-                    <span className="product_name">Shahlik</span>
-                    <p className="product_price">$10 x 2</p>
+                    <img
+                      src={image_path}
+                      alt="product"
+                      className="product_img"
+                    />
+                    <span className="product_name">{item.name}</span>
+                    <p className="product_price">
+                      ${item.price} x {item.quantity}
+                    </p>
                     <Box sx={{ minWidth: 120 }}>
                       <div className="col-2">
                         <button className="romove">-</button>
-                        <button className="add">+</button>
+                        <button
+                          className="add"
+                          onClick={() => props.onAdd(item)}
+                        >
+                          +
+                        </button>
                       </div>
                     </Box>
                   </Box>
@@ -93,9 +119,11 @@ const Basket = (props: any) => {
               })}
             </Box>
           </Box>
-          {true ? (
+          {cartItems.length > 0 ? (
             <Box className="to_order_box">
-              <span className="price_text">Jami: $22 (20 + 2)</span>
+              <span className="price_text">
+                Jami: ${totalPrice} ({itemsPrice} + {shippingPrice})
+              </span>
               <Button
                 onClick={processOrderHandler}
                 startIcon={<ShoppingCartIcon />}

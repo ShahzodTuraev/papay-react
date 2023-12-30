@@ -69,22 +69,6 @@ const NavbarHome = (props: any) => {
               </NavLink>
             </Box>
             <Basket />
-            {/* <Box className="hover-line" onClick={props.setPath}>
-              <IconButton
-                aria-label="cart"
-                id="basic-button"
-                // aria-controls={open ? "basic-menu" : undefined}
-                aria-controls={undefined}
-                aria-haspopup="true"
-                // aria-expanded={open ? "true" : undefined}
-                aria-expanded={undefined}
-                // onClick={handleClick}
-              >
-                <Badge badgeContent={3} color="secondary">
-                  <img src="/icons/shopping-cart.svg" alt="shopping-card" />
-                </Badge>
-              </IconButton>
-            </Box> */}
             {!props.verifiedMemberData ? (
               <Box>
                 <Button

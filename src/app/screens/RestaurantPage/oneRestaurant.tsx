@@ -67,7 +67,7 @@ const targetProductsRetriever = createSelector(
     targetProducts,
   })
 );
-const OneRestaurant = () => {
+const OneRestaurant = (props: any) => {
   // INITIALIZATIONS
   let { restaurant_id } = useParams<{ restaurant_id: string }>();
   const { setRandomRestaurants, setChosenRestaurant, setTargetProducts } =
@@ -342,7 +342,13 @@ const OneRestaurant = () => {
                           />
                         </Badge>
                       </Button>
-                      <Button className="view_btn">
+                      <Button
+                        className="view_btn"
+                        onClick={(e) => {
+                          props.onAdd(product);
+                          e.stopPropagation();
+                        }}
+                      >
                         <img
                           src="/icons/shopping-cart.svg"
                           style={{ display: "flex" }}

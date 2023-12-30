@@ -26,6 +26,8 @@ import {
 import { Definer } from "../lib/Definer";
 import MemberApiService from "./apiServices/memberApiService";
 import "../app/apiServices/verify";
+import { CartItem } from "../types/others";
+import { Product } from "../types/product";
 
 const App = () => {
   /**INITIALIZATIONS*/
@@ -39,6 +41,10 @@ const App = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const cartJson: any = localStorage.getItem("cart_data");
+  const current_cart = JSON.parse(cartJson) ?? [];
+  const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
 
   useEffect(() => {
     const memberDataJson: any = localStorage.getItem("member_data")
@@ -76,6 +82,35 @@ const App = () => {
       sweetFailureProvider(Definer.general_err1);
     }
   };
+
+  const onAdd = (product: Product) => {
+    const exist: any = cartItems.find(
+      (item: CartItem) => item._id === product._id
+    );
+    if (exist) {
+      const cart_updated = cartItems.map((item: CartItem) =>
+        item._id === product._id
+          ? { ...exist, quantity: exist.quantity + 1 }
+          : item
+      );
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    } else {
+      const new_item: CartItem = {
+        _id: product._id,
+        quantity: 1,
+        name: product.product_name,
+        price: product.product_price,
+        image: product.product_images[0],
+      };
+      const cart_updated = [...cartItems, { ...new_item }];
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    }
+  };
+  const onRemove = () => {};
+  const onDelete = () => {};
+  const onDeleteAll = () => {};
   return (
     <Router>
       {main_path == "/" ? (
@@ -101,6 +136,8 @@ const App = () => {
           anchorEl={anchorEl}
           open={open}
           verifiedMemberData={verifiedMemberData}
+          cartItems={cartItems}
+          onAdd={onAdd}
         />
       ) : (
         <NavbarOthers
@@ -118,7 +155,7 @@ const App = () => {
 
       <Switch>
         <Route path="/restaurant">
-          <RestaurantPage />
+          <RestaurantPage onAdd={onAdd} />
         </Route>
         <Route path="/community">
           <CommunityPage />

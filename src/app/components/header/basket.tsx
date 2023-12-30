@@ -10,13 +10,16 @@ import { serverApi } from "../../../lib/config";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
+import OrderApiService from "../../apiServices/orderApiService";
+import { useHistory } from "react-router-dom";
 
 const Basket = (props: any) => {
   // INITIALIZATIONS
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { cartItems, onAdd, onRemove, onDelete } = props;
+  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   console.log(cartItems);
 
   const itemsPrice = cartItems.reduce(
@@ -37,6 +40,11 @@ const Basket = (props: any) => {
   const processOrderHandler = async () => {
     try {
       assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const order = new OrderApiService();
+      await order.createOrder(cartItems);
+      onDeleteAll();
+      handleClose();
+      history.push("/orders");
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();

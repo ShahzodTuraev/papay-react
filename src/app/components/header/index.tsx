@@ -73,6 +73,7 @@ const NavbarHome = (props: any) => {
               cartItems={props.cartItems}
               onRemove={props.onRemove}
               onDelete={props.onDelete}
+              onDeleteAll={props.onDeleteAll}
             />
             {!props.verifiedMemberData ? (
               <Box>

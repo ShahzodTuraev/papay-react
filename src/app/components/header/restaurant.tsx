@@ -64,7 +64,12 @@ const NavbarRestaurant = (props: any) => {
                 Yordam
               </NavLink>
             </Box>
-            <Basket onAdd={props.onAdd} cartItems={props.cartItems} />
+            <Basket
+              onAdd={props.onAdd}
+              cartItems={props.cartItems}
+              onRemove={props.onRemove}
+              onDelete={props.onDelete}
+            />
             {!props.verifiedMemberData ? (
               <Box>
                 <Button

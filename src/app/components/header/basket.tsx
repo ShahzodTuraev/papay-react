@@ -13,7 +13,9 @@ const Basket = (props: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { cartItems, onAdd } = props;
+  const { cartItems, onAdd, onRemove, onDelete } = props;
+  console.log(cartItems);
+
   const itemsPrice = cartItems.reduce(
     (a: any, c: CartItem) => a + c.price * c.quantity,
     0
@@ -91,7 +93,7 @@ const Basket = (props: any) => {
                 const image_path = `${serverApi}/${item.image}`;
                 return (
                   <Box className="basket_info_box">
-                    <div className="cancel_btn">
+                    <div onClick={() => onDelete(item)} className="cancel_btn">
                       <CancelIcon color="primary" />
                     </div>
                     <img
@@ -105,10 +107,19 @@ const Basket = (props: any) => {
                     </p>
                     <Box sx={{ minWidth: 120 }}>
                       <div className="col-2">
-                        <button className="romove">-</button>
+                        <button
+                          onClick={() => {
+                            onRemove(item);
+                          }}
+                          className="romove"
+                        >
+                          -
+                        </button>
                         <button
                           className="add"
-                          onClick={() => props.onAdd(item)}
+                          onClick={() => {
+                            onAdd(item);
+                          }}
                         >
                           +
                         </button>

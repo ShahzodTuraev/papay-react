@@ -150,6 +150,10 @@ const App = () => {
           open={open}
           handleLogOutRequest={handleLogOutRequest}
           verifiedMemberData={verifiedMemberData}
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
         />
       ) : main_path.includes("/restaurant") ? (
         <NavbarRestaurant
@@ -178,6 +182,10 @@ const App = () => {
           anchorEl={anchorEl}
           open={open}
           verifiedMemberData={verifiedMemberData}
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
         />
       )}
 

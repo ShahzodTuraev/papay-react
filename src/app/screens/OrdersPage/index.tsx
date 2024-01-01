@@ -15,6 +15,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { Order } from "../../../types/order";
 import OrderApiService from "../../apiServices/orderApiService";
+import { Member } from "../../../types/user";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -25,6 +26,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 const OrdersPage = (props: any) => {
   /**INITIALIZATIONS**/
+  const verifiedMemberData: Member | null = props.verifiedMemberData;
   const [value, setValue] = useState("1");
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
@@ -83,12 +85,16 @@ const OrdersPage = (props: any) => {
             <Box className="user_img_wrapper">
               <img src="/icons/avatar.svg" />
             </Box>
-            <p className="user_name">Angelina Cute</p>
-            <p className="user_status">Foydalanuvchi</p>
+            <p className="user_name">{verifiedMemberData?.mb_nick}</p>
+            <p className="user_status">
+              {verifiedMemberData?.mb_type ?? "Foydalanuvchi"}
+            </p>
             <Box className="line" />
             <Box className="user_address">
               <LocationOnIcon />
-              <span style={{ marginLeft: "10px" }}>Seoul</span>
+              <span style={{ marginLeft: "10px" }}>
+                {verifiedMemberData?.mb_address ?? "Seoul"}
+              </span>
             </Box>
           </Box>
           <Box className="payment_box">

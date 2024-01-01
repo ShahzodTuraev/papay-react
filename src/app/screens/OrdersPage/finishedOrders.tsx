@@ -4,6 +4,8 @@ import { Box, Stack } from "@mui/material";
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 import { retrieveFinishedOrders } from "./selector";
+import { serverApi } from "../../../lib/config";
+import { Product } from "../../../types/product";
 // REDUX SELECTOR
 const finishedOrdersRetriever = createSelector(
   retrieveFinishedOrders,
@@ -11,39 +13,38 @@ const finishedOrdersRetriever = createSelector(
     finishedOrders,
   })
 );
-const processOrders = [
-  [1, 2, 3],
-  [1, 2, 3],
-  [1, 2, 3],
-];
+
 const FinishedOrders = () => {
   // INITIALIZATION
-  // const { finishedOrders } = useSelector(finishedOrdersRetriever);
+  const { finishedOrders } = useSelector(finishedOrdersRetriever);
   return (
     <TabPanel value="3">
       <Stack>
-        {processOrders?.map((order) => {
+        {finishedOrders?.map((order) => {
           return (
             <Box className="order_main_box">
               <Box className="order_box_scroll">
-                {order.map((item) => {
-                  const image_path = "/others/qovurma.jpg";
+                {order.order_items.map((item) => {
+                  const product: Product = order.product_data.filter(
+                    (ele) => ele._id === item.product_id
+                  )[0];
+                  const image_path = `${serverApi}/${product.product_images[0]}`;
                   return (
                     <Box className="ordersName_price">
                       <img src={image_path} className="orderDishImage" />
-                      <p className="titleDish">Qovurma</p>
+                      <p className="titleDish">{product.product_name}</p>
                       <Box className="priceBox">
-                        <p>$ 11</p>
+                        <p>$ {item.item_price}</p>
                         <img
                           style={{ margin: "0 10px" }}
                           src="/icons/Close.svg"
                         />
-                        <p>10</p>
+                        <p>{item.item_quantity}</p>
                         <img
                           style={{ margin: "0 10px" }}
                           src="/icons/Pause.svg"
                         />
-                        <p>$ 110</p>
+                        <p>$ {item.item_quantity * item.item_price}</p>
                       </Box>
                     </Box>
                   );
@@ -52,15 +53,17 @@ const FinishedOrders = () => {
               <Box className="lastPrice finished_color">
                 <div>
                   <span>Maxsulot narxi = </span>
-                  <span>$ 330</span>
+                  <span>
+                    $ {order.order_total_amount - order.order_delivery_cost}
+                  </span>
                 </div>
                 <div>
                   <span>yetkazish xizmati = </span>
-                  <span>$ 5</span>
+                  <span>$ {order.order_delivery_cost}</span>
                 </div>
                 <div>
                   <span>Jami narx = </span>
-                  <span>$ 335</span>
+                  <span>$ {order.order_total_amount}</span>
                 </div>
               </Box>
             </Box>

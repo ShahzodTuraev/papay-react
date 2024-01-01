@@ -19,7 +19,8 @@ const Basket = (props: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
+  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll, setOrderRebuild } =
+    props;
   console.log(cartItems);
 
   const itemsPrice = cartItems.reduce(
@@ -44,6 +45,7 @@ const Basket = (props: any) => {
       await order.createOrder(cartItems);
       onDeleteAll();
       handleClose();
+      setOrderRebuild(new Date());
       history.push("/orders");
     } catch (err) {
       console.log(err);

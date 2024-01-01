@@ -5,6 +5,13 @@ import { Box, Button, Stack } from "@mui/material";
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 import { retrieveProcessOrders } from "./selector";
+import { Product } from "../../../types/product";
+import { serverApi } from "../../../lib/config";
+import {
+  sweetErrorHandling,
+  sweetFailureProvider,
+} from "../../../lib/sweetAlert";
+import OrderApiService from "../../apiServices/orderApiService";
 // REDUX SELECTOR
 const processOrdersRetriever = createSelector(
   retrieveProcessOrders,
@@ -12,14 +19,32 @@ const processOrdersRetriever = createSelector(
     processOrders,
   })
 );
-const processOrders = [
-  [1, 2, 3],
-  [1, 2, 3],
-  [1, 2, 3],
-];
-const ProcessOrders = () => {
+
+const ProcessOrders = (props: any) => {
   // INITIALIZATION
-  // const { processOrders } = useSelector(processOrdersRetriever);
+  const { processOrders } = useSelector(processOrdersRetriever);
+  // HANDLERS
+
+  const finishOrderHandler = async (e: any) => {
+    try {
+      const order_id = e.target.value;
+      const data = { order_id: order_id, order_status: "FINISHED" };
+      if (!localStorage.getItem("member_data")) {
+        sweetFailureProvider("Please login first", true);
+      }
+      let confirmation = window.confirm(
+        "Buyurtmani olganingizni tasdiqlaysizmi?"
+      );
+      if (confirmation) {
+        const orderService = new OrderApiService();
+        await orderService.updateOrderStatus(data);
+        props.setOrderRebuild(new Date());
+      }
+    } catch (err) {
+      console.log("processOrderHandler, ERROR:", err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <TabPanel value="2">
       <Stack>
@@ -27,14 +52,17 @@ const ProcessOrders = () => {
           return (
             <Box className="order_main_box">
               <Box className="order_box_scroll">
-                {order.map((item) => {
-                  const image_path = "/others/qovurma.jpg";
+                {order.order_items.map((item) => {
+                  const product: Product = order.product_data.filter(
+                    (ele) => ele._id === item.product_id
+                  )[0];
+                  const image_path = `${serverApi}/${product.product_images[0]}`;
                   return (
                     <Box className="ordersName_price">
                       <img src={image_path} className="orderDishImage" />
-                      <p className="titleDish">Qovurma</p>
+                      <p className="titleDish">{product.product_name}</p>
                       <Box className="priceBox">
-                        <p>$ 11</p>
+                        <p>$ {item.item_price}</p>
                         <img
                           style={{ margin: "0 10px" }}
                           src="/icons/Close.svg"
@@ -44,7 +72,7 @@ const ProcessOrders = () => {
                           style={{ margin: "0 10px" }}
                           src="/icons/Pause.svg"
                         />
-                        <p>$ 110</p>
+                        <p>$ {item.item_quantity * item.item_price}</p>
                       </Box>
                     </Box>
                   );
@@ -53,19 +81,29 @@ const ProcessOrders = () => {
               <Box className="lastPrice process_color">
                 <div>
                   <span>Maxsulot narxi = </span>
-                  <span>$ 330</span>
+                  <span>
+                    $ {order.order_total_amount - order.order_delivery_cost}
+                  </span>
                 </div>
                 <div>
                   <span>yetkazish xizmati = </span>
-                  <span>$ 5</span>
+                  <span>$ {order.order_delivery_cost}</span>
                 </div>
                 <div>
                   <span>Jami narx = </span>
-                  <span>$ 335</span>
+                  <span>$ {order.order_total_amount}</span>
                 </div>
                 <div>
-                  <span>{moment().format("YY-DD-MM HH:MM")}</span>
-                  <Button className="complate_btn">Yakunlash</Button>
+                  <span>
+                    {moment(order.createdAt).format("YY-DD-MM HH:MM")}
+                  </span>
+                  <Button
+                    value={order._id}
+                    onClick={finishOrderHandler}
+                    className="complate_btn"
+                  >
+                    Yakunlash
+                  </Button>
                 </div>
               </Box>
             </Box>

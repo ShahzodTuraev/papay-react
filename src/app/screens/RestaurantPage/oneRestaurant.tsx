@@ -326,6 +326,10 @@ const OneRestaurant = (props: any) => {
                         <Badge
                           badgeContent={product.product_likes}
                           color="primary"
+                          onClick={(e) => {
+                            props.onAdd(product);
+                            e.stopPropagation();
+                          }}
                         >
                           <Checkbox
                             onClick={targetLikeHandler}

@@ -45,7 +45,7 @@ const App = () => {
   const cartJson: any = localStorage.getItem("cart_data");
   const current_cart = JSON.parse(cartJson) ?? [];
   const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
-
+  const [orderRebuild, setOrderRebuild] = useState<Date>(new Date());
   useEffect(() => {
     const memberDataJson: any = localStorage.getItem("member_data")
       ? localStorage.getItem("member_data")
@@ -158,6 +158,7 @@ const App = () => {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setOrderRebuild={setOrderRebuild}
         />
       ) : main_path.includes("/restaurant") ? (
         <NavbarRestaurant
@@ -175,6 +176,7 @@ const App = () => {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setOrderRebuild={setOrderRebuild}
         />
       ) : (
         <NavbarOthers
@@ -192,6 +194,7 @@ const App = () => {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setOrderRebuild={setOrderRebuild}
         />
       )}
 
@@ -203,7 +206,10 @@ const App = () => {
           <CommunityPage />
         </Route>
         <Route path="/orders">
-          <OrdersPage />
+          <OrdersPage
+            orderRebuild={orderRebuild}
+            setOrderRebuild={setOrderRebuild}
+          />
         </Route>
         <Route path="/member-page">
           <MemberPage />

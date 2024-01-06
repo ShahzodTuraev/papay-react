@@ -66,7 +66,7 @@ const chosenMemberBoArticleRetriever = createSelector(
   })
 );
 
-const VisitOtherPage = () => {
+const VisitOtherPage = (props: any) => {
   /** INITIALIZINGS **/
   const [value, setValue] = useState("4");
 

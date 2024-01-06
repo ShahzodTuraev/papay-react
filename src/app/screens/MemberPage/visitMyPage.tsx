@@ -66,7 +66,7 @@ const chosenMemberBoArticleRetriever = createSelector(
     chosenMemberBoArticles,
   })
 );
-const VisitMyPage = () => {
+const VisitMyPage = (props: any) => {
   /** INITIALIZINGS **/
   const {
     setChosenMember,
@@ -78,7 +78,7 @@ const VisitMyPage = () => {
     chosenMemberBoArticleRetriever
   );
   const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
-  const [value, setValue] = useState("6");
+  const [value, setValue] = useState("1");
 
   /** HANDLERS **/
   const handlerChange = (event: React.SyntheticEvent, newValue: string) => {

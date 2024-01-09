@@ -1,4 +1,4 @@
-import { Box, Link } from "@mui/material";
+import { Box, Link, Stack } from "@mui/material";
 import React from "react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -47,11 +47,11 @@ const MemberPosts = (props: any) => {
           ? `${serverApi}/${article.art_image}`
           : "/community/default_img.jpeg";
         return (
-          <Link
+          <Stack
             key={article._id}
+            sx={{ display: "flex", flexDirection: "row" }}
             className="all_article_box"
-            sx={{ textDecoration: "none" }}
-            href={``}
+            onClick={() => renderChosenArticleHandler(article?._id)}
           >
             <Box
               className="all_article_img"
@@ -106,7 +106,7 @@ const MemberPosts = (props: any) => {
                 </Box>
               </Box>
             </Box>
-          </Link>
+          </Stack>
         );
       })}
     </Box>

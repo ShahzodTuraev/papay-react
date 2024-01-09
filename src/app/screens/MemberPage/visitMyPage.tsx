@@ -118,7 +118,10 @@ const VisitMyPage = (props: any) => {
       const communityService = new CommunityApiService();
       communityService
         .getChosenArticle(art_id)
-        .then((data) => setChosenSingleBoArticle(data))
+        .then((data) => {
+          setChosenSingleBoArticle(data);
+          setValue("6");
+        })
         .catch((err) => console.log(err));
     } catch (err: any) {
       console.log(err);
@@ -148,8 +151,8 @@ const VisitMyPage = (props: any) => {
                     >
                       <Box className="bottom_box">
                         <Pagination
-                          count={3}
-                          page={1}
+                          count={memberArticleSearchObj.limit}
+                          page={memberArticleSearchObj.page}
                           renderItem={(item) => (
                             <PaginationItem
                               components={{
@@ -193,7 +196,7 @@ const VisitMyPage = (props: any) => {
                 <TabPanel value="6">
                   <Box className="menu_name">Tanlangan Maqolalar</Box>
                   <Box className="menu_content">
-                    <TViewer text="hi tviewer" />
+                    <TViewer chosenSingleBoArticle={chosenSingleBoArticle} />
                   </Box>
                 </TabPanel>
               </Box>

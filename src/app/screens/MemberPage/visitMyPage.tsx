@@ -7,7 +7,10 @@ import {
   PaginationItem,
   Stack,
 } from "@mui/material";
-import { TabContext, TabPanel } from "@mui/lab";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   ArrowBack,
   ArrowForward,
@@ -254,19 +257,51 @@ const VisitMyPage = (props: any) => {
                   {chosenMember?.mb_description ??
                     "qo'shimcha ma'lumot kiritilmagan"}
                 </p>
-                <Button onClick={() => setValue("4")} variant="contained">
+                <Button
+                  style={
+                    value === "4"
+                      ? { borderBottom: "3px solid coral" }
+                      : { opacity: "auto" }
+                  }
+                  onClick={() => setValue("4")}
+                  variant="contained"
+                >
                   Maqola yozish
                 </Button>
               </Box>
               <Box className="menu_wrapper">
-                <Box onClick={() => setValue("1")} className="tab_menu">
+                <Box
+                  style={
+                    value === "1"
+                      ? { borderBottom: "3px solid coral" }
+                      : { opacity: "auto" }
+                  }
+                  onClick={() => setValue("1")}
+                  className="tab_menu"
+                >
                   <img src="/icons/Pencil.svg" alt="icon" /> Maqolalarim
                 </Box>
-                <Box onClick={() => setValue("2")} className="tab_menu">
+                <Box
+                  style={
+                    value === "2"
+                      ? { borderBottom: "3px solid coral" }
+                      : { opacity: "auto" }
+                  }
+                  onClick={() => setValue("2")}
+                  className="tab_menu"
+                >
                   <img src="/icons/Group.svg" alt="icon" />
                   Follower
                 </Box>
-                <Box onClick={() => setValue("3")} className="tab_menu">
+                <Box
+                  style={
+                    value === "3"
+                      ? { borderBottom: "3px solid coral" }
+                      : { opacity: "auto" }
+                  }
+                  onClick={() => setValue("3")}
+                  className="tab_menu"
+                >
                   <img src="/icons/User.svg" alt="icon" />
                   Following
                 </Box>

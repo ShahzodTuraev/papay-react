@@ -61,8 +61,6 @@ class MemberApiService {
 
   public async memberLikeTarget(data: any) {
     try {
-      
-
       const result = await axios.post(this.path + "/member-liken", data, {
         withCredentials: true,
       });
@@ -72,10 +70,27 @@ class MemberApiService {
       assert.ok(result?.data.state !== "fail", result?.data?.message);
       console.log("state: ", result.data.data);
       const like_result: MemberLiken = result.data.data;
-   
+
       return like_result;
     } catch (err: any) {
       console.log(`ERROR::: memberLikeTarget ${err.message}`);
+    }
+  }
+
+  public async getChosenMember(id: string) {
+    try {
+      const result = await axios.get(this.path + `/member/${id}`, {
+        withCredentials: true,
+      });
+
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
+      console.log("state: ", result.data.data);
+      const member: any = result.data.data;
+
+      return member;
+    } catch (err: any) {
+      console.log(`ERROR::: getChosenMember ${err.message}`);
     }
   }
 }

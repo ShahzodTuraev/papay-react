@@ -27,6 +27,8 @@ const MemberFollowers = (props: any) => {
   /**INSTALIZATIONS**/
   const { setMemberFollowers } = actionDispatch(useDispatch());
   const { memberFollowers } = useSelector(memberFollowersRetriever);
+  // HANDLERS
+  //subscribeHandler
   return (
     <Stack>
       {followers.map((follower) => {

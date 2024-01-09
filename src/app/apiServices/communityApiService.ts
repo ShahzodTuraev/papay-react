@@ -36,8 +36,6 @@ class CommunityApiService {
     data: SearchMemberArticlesObj
   ): Promise<any> {
     try {
-      console.log("mani datam:::", data);
-
       let url = `/community/articles?mb_id=${data.mb_id}&page=${data.page}&limit=${data.limit}`;
 
       const result = await axios.get(this.path + url, {

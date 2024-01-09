@@ -89,6 +89,7 @@ const VisitMyPage = (props: any) => {
   const [memberArticleSearchObj, seMemberArticleSearchObj] =
     useState<SearchMemberArticlesObj>({ mb_id: "none", page: 1, limit: 5 });
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
+  const [followRebuild, setFollowRebuild] = useState<Date>(new Date());
   useEffect(() => {
     if (!localStorage.getItem("member_data")) {
       sweetFailureProvider("Please login first", true, true);
@@ -151,7 +152,11 @@ const VisitMyPage = (props: any) => {
                     >
                       <Box className="bottom_box">
                         <Pagination
-                          count={memberArticleSearchObj.limit}
+                          count={
+                            memberArticleSearchObj.page >= 3
+                              ? memberArticleSearchObj.page + 1
+                              : 3
+                          }
                           page={memberArticleSearchObj.page}
                           renderItem={(item) => (
                             <PaginationItem
@@ -172,13 +177,23 @@ const VisitMyPage = (props: any) => {
                 <TabPanel value="2">
                   <Box className="menu_name">Followers</Box>
                   <Box className="menu_content">
-                    <MemberFollowers actions_enabled={true} />
+                    <MemberFollowers
+                      mb_id={props.verifiedMemberData?._id}
+                      actions_enabled={true}
+                      setFollowRebuild={setFollowRebuild}
+                      followRebuild={followRebuild}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="3">
                   <Box className="menu_name">Following</Box>
                   <Box className="write_content">
-                    <MemberFollowing actions_enabled={true} />
+                    <MemberFollowing
+                      actions_enabled={true}
+                      mb_id={props.verifiedMemberData?._id}
+                      setFollowRebuild={setFollowRebuild}
+                      followRebuild={followRebuild}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="4">
@@ -207,15 +222,22 @@ const VisitMyPage = (props: any) => {
                 <a onClick={() => setValue("5")} className="settings_btn">
                   <Settings />
                 </a>
-                <Box className="user_img_wrap">
+                <Box
+                  className="user_img_wrap"
+                  sx={{ backgroundImage: `url(${chosenMember?.mb_image})` }}
+                >
                   <img
-                    src="/icons/avatar.svg"
+                    src={
+                      chosenMember?.mb_type === "RESTAURANT"
+                        ? "/icons/restaurant.svg"
+                        : "/icons/avatar.svg"
+                    }
                     alt="user"
                     className="user_corner_icon"
                   />
                 </Box>
-                <p className="user_name">Angelina Cute</p>
-                <p className="user_type">Foydalanuvchi</p>
+                <p className="user_name">{chosenMember?.mb_nick}</p>
+                <p className="user_type">{chosenMember?.mb_type}</p>
                 <Box className="social_wrap">
                   <Facebook className="social_icons" />
                   <Instagram className="social_icons" />
@@ -223,10 +245,15 @@ const VisitMyPage = (props: any) => {
                   <Telegram className="social_icons" />
                 </Box>
                 <Box className="follow_status">
-                  <span style={{ marginRight: "20px" }}>Follower: 3</span>
-                  <span>Followings: 7</span>
+                  <span style={{ marginRight: "20px" }}>
+                    Follower: {chosenMember?.mb_subscriber_cnt}
+                  </span>
+                  <span>Followings: {chosenMember?.mb_follow_cnt}</span>
                 </Box>
-                <p className="user_desc">Salom mening ismim Angelina</p>
+                <p className="user_desc">
+                  {chosenMember?.mb_description ??
+                    "qo'shimcha ma'lumot kiritilmagan"}
+                </p>
                 <Button onClick={() => setValue("4")} variant="contained">
                   Maqola yozish
                 </Button>

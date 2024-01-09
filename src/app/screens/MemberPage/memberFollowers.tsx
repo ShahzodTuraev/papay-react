@@ -24,6 +24,7 @@ import {
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import { SearchMemberArticlesObj } from "../../../types/boArticle";
+import { useHistory } from "react-router-dom";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setMemberFollowers: (data: Follower[]) => dispatch(setMemberFollowers(data)),
@@ -44,6 +45,7 @@ const MemberFollowers = (props: any) => {
   const [followersSearchObj, setFollowersSearchObj] = useState<FollowSearchObj>(
     { page: 1, limit: 5, mb_id: mb_id }
   );
+  const history = useHistory();
 
   useEffect(() => {
     const followService = new FollowApiService();
@@ -70,6 +72,10 @@ const MemberFollowers = (props: any) => {
       sweetErrorHandling(err).then();
     }
   };
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
   return (
     <Stack>
       {memberFollowers.map((follower: Follower) => {
@@ -82,13 +88,22 @@ const MemberFollowers = (props: any) => {
               <Avatar
                 alt="avatar"
                 src={img_url}
-                sx={{ width: 89, height: 89, mr: "25px" }}
+                sx={{ width: 89, height: 89, mr: "25px", cursor: "pointer" }}
+                onClick={() => visitMemberHandler(follower?.subscriber_id)}
               />
               <div className="name_wrap">
-                <span className="username_text">
+                <span
+                  style={{ cursor: "pointer" }}
+                  className="username_text"
+                  onClick={() => visitMemberHandler(follower?.subscriber_id)}
+                >
                   {follower?.subscriber_member_data?.mb_type}
                 </span>
-                <span className="name_text">
+                <span
+                  style={{ cursor: "pointer" }}
+                  className="name_text"
+                  onClick={() => visitMemberHandler(follower?.subscriber_id)}
+                >
                   {follower?.subscriber_member_data?.mb_nick}
                 </span>
               </div>

@@ -23,6 +23,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setMemberFollowings: (data: Following[]) =>
@@ -38,6 +39,7 @@ const memberFollowingsRetriever = createSelector(
 
 const MemberFollowing = (props: any) => {
   /**INSTALIZATIONS**/
+  const history = useHistory();
   const { setFollowRebuild, followRebuild, mb_id } = props;
   const { setMemberFollowings } = actionDispatch(useDispatch());
   const { memberFollowings } = useSelector(memberFollowingsRetriever);
@@ -69,7 +71,10 @@ const MemberFollowing = (props: any) => {
       sweetErrorHandling(err).then();
     }
   };
-
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
   return (
     <Stack>
       {memberFollowings.map((following: Following) => {
@@ -82,13 +87,22 @@ const MemberFollowing = (props: any) => {
               <Avatar
                 alt="avatar"
                 src={img_url}
-                sx={{ width: 89, height: 89, mr: "25px" }}
+                sx={{ width: 89, height: 89, mr: "25px", cursor: "pointer" }}
+                onClick={() => visitMemberHandler(following?.subscriber_id)}
               />
               <div className="name_wrap">
-                <span className="username_text">
+                <span
+                  onClick={() => visitMemberHandler(following?.subscriber_id)}
+                  style={{ cursor: "pointer" }}
+                  className="username_text"
+                >
                   {following?.follow_member_data?.mb_type}
                 </span>
-                <span className="name_text">
+                <span
+                  onClick={() => visitMemberHandler(following?.subscriber_id)}
+                  style={{ cursor: "pointer" }}
+                  className="name_text"
+                >
                   {following?.follow_member_data?.mb_nick}
                 </span>
               </div>

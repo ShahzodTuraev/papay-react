@@ -90,7 +90,7 @@ const VisitMyPage = (props: any) => {
   const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
   const [value, setValue] = useState("1");
   const [memberArticleSearchObj, seMemberArticleSearchObj] =
-    useState<SearchMemberArticlesObj>({ mb_id: "none", page: 1, limit: 5 });
+    useState<SearchMemberArticlesObj>({ mb_id: "none", page: 1, limit: 4 });
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
   const [followRebuild, setFollowRebuild] = useState<Date>(new Date());
   useEffect(() => {
@@ -202,7 +202,10 @@ const VisitMyPage = (props: any) => {
                 <TabPanel value="4">
                   <Box className="menu_name">Maqola yozish</Box>
                   <Box className="menu_content">
-                    <TuiEditor />
+                    <TuiEditor
+                      setValue={setValue}
+                      setArticleRebuild={setArticleRebuild}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="5">

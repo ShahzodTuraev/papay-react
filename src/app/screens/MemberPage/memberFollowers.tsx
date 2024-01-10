@@ -25,6 +25,7 @@ import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import { SearchMemberArticlesObj } from "../../../types/boArticle";
 import { useHistory } from "react-router-dom";
+import { verifyMemberData } from "../../apiServices/verify";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setMemberFollowers: (data: Follower[]) => dispatch(setMemberFollowers(data)),
@@ -62,7 +63,7 @@ const MemberFollowers = (props: any) => {
   const subscribeHandler = async (e: any, id: string) => {
     try {
       e.stopPropagation();
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifyMemberData, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.subscribe(id);
       await sweetTopSmallSuccessAlert("subscribed successfully", 700, false);

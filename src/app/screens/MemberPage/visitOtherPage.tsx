@@ -48,6 +48,7 @@ import {
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import FollowApiService from "../../apiServices/followApiService";
+import { verifyMemberData } from "../../apiServices/verify";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenMember: (data: Member) => dispatch(setChosenMember(data)),
@@ -80,7 +81,7 @@ const VisitOtherPage = (props: any) => {
   /** INITIALIZINGS **/
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
   const [followRebuild, setFollowRebuild] = useState<Date>(new Date());
-  const { verifiedMemberData, chosen_mb_id, chosen_art_id } = props;
+  const { chosen_mb_id, chosen_art_id } = props;
   const history = useHistory();
   const [value, setValue] = useState("1");
 
@@ -101,7 +102,7 @@ const VisitOtherPage = (props: any) => {
     });
   const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
   useEffect(() => {
-    if (chosen_mb_id === verifiedMemberData?._id) {
+    if (chosen_mb_id === verifyMemberData?._id) {
       history.push("/member-page");
     }
     const communityService = new CommunityApiService();
@@ -120,7 +121,7 @@ const VisitOtherPage = (props: any) => {
       .catch((err) => console.log(err));
   }, [memberArticleSearchObj, chosen_mb_id, articleRebuild]);
   useEffect(() => {
-    if (chosen_mb_id === verifiedMemberData?._id) {
+    if (chosen_mb_id === verifyMemberData?._id) {
       history.push("/member-page");
     }
     const memberService = new MemberApiService();
@@ -129,7 +130,7 @@ const VisitOtherPage = (props: any) => {
       .getChosenMember(memberArticleSearchObj.mb_id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
-  }, [verifiedMemberData, chosen_mb_id, followRebuild]);
+  }, [verifyMemberData, chosen_mb_id, followRebuild]);
   /** HANDLERS **/
   const handlerChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -156,7 +157,7 @@ const VisitOtherPage = (props: any) => {
 
   const subscribeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifyMemberData, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.subscribe(e.target.value);
       await sweetTopSmallSuccessAlert("subscribed successfully", 700, false);
@@ -169,7 +170,7 @@ const VisitOtherPage = (props: any) => {
 
   const unsubscribeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifyMemberData, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.unsubscribe(e.target.value);
       await sweetTopSmallSuccessAlert("unsubscribed successfully", 700, false);

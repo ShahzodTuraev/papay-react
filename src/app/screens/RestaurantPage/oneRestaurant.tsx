@@ -40,6 +40,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
 import MemberApiService from "../../apiServices/memberApiService";
+import { verifyMemberData } from "../../apiServices/verify";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setRandomRestaurants: (data: Restaurant[]) =>
@@ -131,7 +132,7 @@ const OneRestaurant = (props: any) => {
   };
   const targetLikeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifyMemberData, Definer.auth_err1);
       const memberService = new MemberApiService();
       const data = { like_ref_id: e.target.id, group_type: "product" };
       const like_result: any = await memberService.memberLikeTarget(data);

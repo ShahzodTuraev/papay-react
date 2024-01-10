@@ -21,6 +21,7 @@ import { createSelector } from "reselect";
 import { retrieveBestRestaurants } from "./selector";
 import { Restaurant } from "../../../types/user";
 import { serverApi } from "../../../lib/config";
+import { verifyMemberData } from "../../apiServices/verify";
 // REDUX SELECTOR
 const bestRestaurantRetriever = createSelector(
   retrieveBestRestaurants,
@@ -43,7 +44,7 @@ const BestRestaurants = () => {
 
   const targetLikeBest = async (e: any, id: string) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifyMemberData, Definer.auth_err1);
       const memberService = new MemberApiService();
       const data = { like_ref_id: id, group_type: "member" };
       const like_result: any = await memberService.memberLikeTarget(data);

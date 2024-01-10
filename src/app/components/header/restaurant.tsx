@@ -13,6 +13,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Logout } from "@mui/icons-material";
 import Basket from "./basket";
+import { verifyMemberData } from "../../apiServices/verify";
 
 const NavbarRestaurant = (props: any) => {
   return (
@@ -40,7 +41,7 @@ const NavbarRestaurant = (props: any) => {
                 Oshxona
               </NavLink>
             </Box>
-            {props.verifiedMemberData ? (
+            {verifyMemberData ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to={"/orders"} activeClassName="underline">
                   Buyurtma
@@ -52,7 +53,7 @@ const NavbarRestaurant = (props: any) => {
                 Jamiyat
               </NavLink>
             </Box>
-            {props.verifiedMemberData ? (
+            {verifyMemberData ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to={"/member-page"} activeClassName="underline">
                   Mening sahifam
@@ -72,7 +73,7 @@ const NavbarRestaurant = (props: any) => {
               onDeleteAll={props.onDeleteAll}
               setOrderRebuild={props.setOrderRebuild}
             />
-            {!props.verifiedMemberData ? (
+            {!verifyMemberData ? (
               <Box>
                 <Button
                   variant="contained"
@@ -90,7 +91,7 @@ const NavbarRestaurant = (props: any) => {
                   borderRadius: "24px",
                   cursor: "pointer",
                 }}
-                src={props.verifiedMemberData.mb_image}
+                src={verifyMemberData.mb_image}
                 onClick={props.handleLogOutClick}
               />
             )}

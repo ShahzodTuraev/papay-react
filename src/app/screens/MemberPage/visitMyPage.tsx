@@ -48,6 +48,7 @@ import {
 } from "../../../lib/sweetAlert";
 import CommunityApiService from "../../apiServices/communityApiService";
 import MemberApiService from "../../apiServices/memberApiService";
+import { verifyMemberData } from "../../apiServices/verify";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenMember: (data: Member) => dispatch(setChosenMember(data)),
@@ -77,7 +78,6 @@ const chosenMemberBoArticleRetriever = createSelector(
 );
 const VisitMyPage = (props: any) => {
   /** INITIALIZINGS **/
-  const { verifiedMemberData } = props;
   const {
     setChosenMember,
     setChosenMemberBoArticles,
@@ -94,7 +94,7 @@ const VisitMyPage = (props: any) => {
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
   const [followRebuild, setFollowRebuild] = useState<Date>(new Date());
   useEffect(() => {
-    if (!localStorage.getItem("member_data")) {
+    if (!verifyMemberData) {
       sweetFailureProvider("Please login first", true, true);
     }
     const communityService = new CommunityApiService();
@@ -105,7 +105,7 @@ const VisitMyPage = (props: any) => {
       .catch((err) => console.log(err));
     // setChosenMemberBoArticles,
     memberService
-      .getChosenMember(verifiedMemberData?._id)
+      .getChosenMember(verifyMemberData?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
   }, [memberArticleSearchObj, articleRebuild]);
@@ -181,7 +181,7 @@ const VisitMyPage = (props: any) => {
                   <Box className="menu_name">Followers</Box>
                   <Box className="menu_content">
                     <MemberFollowers
-                      mb_id={props.verifiedMemberData?._id}
+                      mb_id={verifyMemberData?._id}
                       actions_enabled={true}
                       setFollowRebuild={setFollowRebuild}
                       followRebuild={followRebuild}
@@ -193,7 +193,7 @@ const VisitMyPage = (props: any) => {
                   <Box className="write_content">
                     <MemberFollowing
                       actions_enabled={true}
-                      mb_id={props.verifiedMemberData?._id}
+                      mb_id={verifyMemberData?._id}
                       setFollowRebuild={setFollowRebuild}
                       followRebuild={followRebuild}
                     />

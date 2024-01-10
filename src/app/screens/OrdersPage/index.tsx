@@ -16,6 +16,7 @@ import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { Order } from "../../../types/order";
 import OrderApiService from "../../apiServices/orderApiService";
 import { Member } from "../../../types/user";
+import { verifyMemberData } from "../../apiServices/verify";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -26,7 +27,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 const OrdersPage = (props: any) => {
   /**INITIALIZATIONS**/
-  const verifiedMemberData: Member | null = props.verifiedMemberData;
+  const verifiedMemberData: Member | null = verifyMemberData;
   const [value, setValue] = useState("1");
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());

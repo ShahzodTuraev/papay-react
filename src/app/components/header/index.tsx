@@ -13,6 +13,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { Logout } from "@mui/icons-material";
 import Basket from "./basket";
+import { verifyMemberData } from "../../apiServices/verify";
 
 const NavbarHome = (props: any) => {
   // INITIALIZATIONS
@@ -44,7 +45,7 @@ const NavbarHome = (props: any) => {
                 Oshxona
               </NavLink>
             </Box>
-            {props.verifiedMemberData ? (
+            {verifyMemberData ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to={"/orders"} activeClassName="underline">
                   Buyurtma
@@ -56,7 +57,7 @@ const NavbarHome = (props: any) => {
                 Jamiyat
               </NavLink>
             </Box>
-            {props.verifiedMemberData ? (
+            {verifyMemberData ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to={"/member-page"} activeClassName="underline">
                   Mening sahifam
@@ -76,7 +77,7 @@ const NavbarHome = (props: any) => {
               onDeleteAll={props.onDeleteAll}
               setOrderRebuild={props.setOrderRebuild}
             />
-            {!props.verifiedMemberData ? (
+            {!verifyMemberData ? (
               <Box>
                 <Button
                   variant="contained"
@@ -94,7 +95,7 @@ const NavbarHome = (props: any) => {
                   borderRadius: "24px",
                   cursor: "pointer",
                 }}
-                src={props.verifiedMemberData.mb_image}
+                src={verifyMemberData.mb_image}
                 onClick={props.handleLogOutClick}
               />
             )}
@@ -154,7 +155,7 @@ const NavbarHome = (props: any) => {
             </Box>
             <Box className="timeline_service">24 soat xizmatingizdamiz.</Box>
             <Box sx={{ mt: "90px" }}>
-              {!props.verifiedMemberData ? (
+              {!verifyMemberData ? (
                 <Button
                   variant="contained"
                   sx={{

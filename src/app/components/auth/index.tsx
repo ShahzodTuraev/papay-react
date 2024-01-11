@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -38,19 +38,21 @@ const AuthenticationModel = (props: any) => {
   // INITIALIZATIONS
   const classes = useStyle();
 
-  let mb_nick: string = "",
-    mb_password: string = "",
-    mb_phone: string = "";
-
+  // let mb_nick: string = "",
+  //   mb_password: string = "",
+  //   mb_phone: string = "";
+  const [mb_nick, set_mb_nick] = useState<string>("");
+  const [mb_password, set_mb_password] = useState<string>("");
+  const [mb_phone, set_mb_phone] = useState<string>("");
   // HANDLERS
   const handleUserName = (e: any) => {
-    mb_nick = e.target.value;
+    set_mb_nick(e.target.value);
   };
   const handlePhone = (e: any) => {
-    mb_phone = e.target.value;
+    set_mb_phone(e.target.value);
   };
   const handlePassword = (e: any) => {
-    mb_password = e.target.value;
+    set_mb_password(e.target.value);
   };
 
   const handleLogInRequest = async () => {
@@ -90,6 +92,13 @@ const AuthenticationModel = (props: any) => {
       console.log(err);
       props.handleSingUpClose();
       sweetErrorHandling(err).then();
+    }
+  };
+  const paasswordKeyPressHandler = (e: any) => {
+    if (e.key === "Enter" && props.signUpOpen) {
+      handleSignUpRequest().then();
+    } else if (e.key === "Enter" && props.logInOpen) {
+      handleLogInRequest().then();
     }
   };
 
@@ -134,6 +143,7 @@ const AuthenticationModel = (props: any) => {
                 label="password"
                 variant="outlined"
                 onChange={handlePassword}
+                onKeyPress={paasswordKeyPressHandler}
               />
               <Fab
                 sx={{ marginTop: "30px", width: "120px" }}
@@ -186,6 +196,7 @@ const AuthenticationModel = (props: any) => {
                 label="password"
                 variant="outlined"
                 onChange={handlePassword}
+                onKeyPress={paasswordKeyPressHandler}
               />
               <Fab
                 sx={{ marginTop: "25px", width: "120px" }}

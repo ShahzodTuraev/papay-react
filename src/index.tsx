@@ -13,13 +13,15 @@ import theme from "./app/MaterialTheme";
 
 // const container = document.getElementById("root")!;
 // const root = createRoot(container);
-
+import { SocketContext, socket } from "./app/context/socket";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <SocketContext.Provider value={socket}>
+          <App />
+        </SocketContext.Provider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

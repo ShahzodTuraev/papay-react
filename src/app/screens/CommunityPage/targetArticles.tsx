@@ -47,7 +47,7 @@ const TargetArticles = (props: any) => {
           <Link
             className="all_article_box"
             sx={{ textDecoration: "none", height: "180px" }}
-            href={``}
+            href={`/member-page/other?mb_id=${article.mb_id}&art_id=${article._id}`}
           >
             <Box
               className="all_article_img"

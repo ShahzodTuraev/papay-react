@@ -132,6 +132,7 @@ const VisitMyPage = (props: any) => {
       sweetErrorHandling(err).then();
     }
   };
+
   return (
     <div className="my_page">
       <Container maxWidth="lg" sx={{ mt: "50px", mb: "50px" }}>
@@ -230,7 +231,11 @@ const VisitMyPage = (props: any) => {
                 </a>
                 <Box
                   className="user_img_wrap"
-                  sx={{ backgroundImage: `url(${chosenMember?.mb_image})` }}
+                  sx={{
+                    backgroundImage: `url(${verifyMemberData?.mb_image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
                 >
                   <img
                     src={

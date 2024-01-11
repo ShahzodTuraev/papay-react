@@ -49,6 +49,7 @@ import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import FollowApiService from "../../apiServices/followApiService";
 import { verifyMemberData } from "../../apiServices/verify";
+import { serverApi } from "../../../lib/config";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenMember: (data: Member) => dispatch(setChosenMember(data)),
@@ -180,6 +181,7 @@ const VisitOtherPage = (props: any) => {
       sweetErrorHandling(err).then();
     }
   };
+  console.log("////////////", chosenMember?.mb_image);
   return (
     <div className="my_page">
       <Container maxWidth="lg" sx={{ mt: "50px", mb: "50px" }}>
@@ -259,7 +261,14 @@ const VisitOtherPage = (props: any) => {
 
             <Stack className="my_page_right">
               <Box className="order_info_box">
-                <Box className="user_img_wrap">
+                <Box
+                  className="user_img_wrap"
+                  sx={{
+                    backgroundImage: `url(${serverApi}/${chosenMember?.mb_image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
                   <img
                     src="/icons/avatar.svg"
                     alt="user"
